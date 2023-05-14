@@ -55,13 +55,14 @@ public class Login extends AppCompatActivity {
                     String result = respObj.getString("result");
 //                    Toast.makeText(Login.this, result, Toast.LENGTH_SHORT).show();
 
-//                    Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
                     if (result.equals("valid")){
                         finish();
                         Callthis = new Intent(".Voting_page");
                         GlobalClass globalClass = (GlobalClass) getApplicationContext();
                         globalClass.setUser_id(respObj.getString("id"));
-//                        Toast.makeText(Login.this, globalClass.getUser_id(), Toast.LENGTH_SHORT).show();
+                        globalClass.setUsername(edtUsername.getText().toString());
+                        Toast.makeText(Login.this, globalClass.getUser_id(), Toast.LENGTH_SHORT).show();
                         startActivity(Callthis);
                     }
                 } catch (JSONException e) {
