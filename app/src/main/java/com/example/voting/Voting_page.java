@@ -27,7 +27,7 @@ import java.util.Map;
 
 public class Voting_page extends Activity {
     ArrayList<Candidates> candidatesList = new ArrayList<Candidates>();
-    GlobalClass globalClass = (GlobalClass) getApplicationContext();
+
     CandidateAdapter adapter = null;
 
     Intent Callthis;
@@ -51,6 +51,7 @@ public class Voting_page extends Activity {
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                GlobalClass globalClass = (GlobalClass) getApplicationContext();
                 GlobalVariables.votedList.clear();
                 globalClass.setUsername(null);
                 globalClass.setUser_id(null);

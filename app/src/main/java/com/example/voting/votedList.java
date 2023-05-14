@@ -22,7 +22,7 @@ import java.util.Map;
 
 public class votedList extends Activity {
     Button btnBack,btnSubmit;
-    GlobalClass globalClass = (GlobalClass) getApplicationContext();
+
     CandidateAdapter adapter = null;
     GridView gridView;
     Intent Callthis;
@@ -72,6 +72,7 @@ public class votedList extends Activity {
                     Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
                     if (result.equals("success")){
                         Toast.makeText(votedList.this, "Voted Successfully", Toast.LENGTH_SHORT).show();
+                        GlobalClass globalClass = (GlobalClass) getApplicationContext();
                         GlobalVariables.votedList.clear();
                         globalClass.setUsername(null);
                         globalClass.setUser_id(null);
@@ -102,7 +103,7 @@ public class votedList extends Activity {
                         can_id += GlobalVariables.votedList.get(i).getId() + ",";
                     }
                 }
-
+                GlobalClass globalClass = (GlobalClass) getApplicationContext();
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("post", "votMobile");
                 params.put("can_id", can_id);
