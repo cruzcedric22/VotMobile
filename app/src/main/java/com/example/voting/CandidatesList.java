@@ -1,24 +1,19 @@
 package com.example.voting;
 
-import static java.lang.Integer.parseInt;
-
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.voting.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,74 +21,46 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Map;
-import java.util.Set;
 
-public class Voting_page extends Activity {
+public class CandidatesList extends AppCompatActivity {
+
     ArrayList<Candidates> candidatesList = new ArrayList<Candidates>();
-    ArrayList<Candidates> candidatesList2 = new ArrayList<Candidates>();
 
-    String[] canNameArr2 = null;
-    String[] posNameArr2 = null;
-    String[] picNameArr2 = null;
-    String[] canIdArr2 = null;
+    CandidateAdapter adapter = null;
 
-    PositionAdapter adapter = null;
 
+    Button btnBack;
     Intent Callthis;
 
     GridView gridView;
-    Button btnLogout,btnNext;
+    String globalPos = "";
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.voting_page);
+        setContentView(R.layout.candidates_list);
 
-        btnLogout = (Button) findViewById(R.id.btnLogout);
-        btnNext = (Button) findViewById(R.id.btnNext);
+        Intent receivedIntent = getIntent();
+        String receivedValue = receivedIntent.getStringExtra("position");
+        globalPos  = receivedValue;
 
-
-        gridView = (GridView) findViewById(R.id.gridView);
-        adapter = new PositionAdapter(this, R.layout.positiondetails, candidatesList);
+        gridView = (GridView) findViewById(R.id.gridView1);
+        adapter = new CandidateAdapter(this, R.layout.candidatedetails, candidatesList);
         gridView.setAdapter(adapter);
         postDataUsingVolley();
 
-        btnLogout.setOnClickListener(new View.OnClickListener() {
+        btnBack = (Button) findViewById(R.id.btnBack);
+        btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                GlobalClass globalClass = (GlobalClass) getApplicationContext();
-                GlobalVariables.votedList.clear();
-                globalClass.setUsername(null);
-//                globalClass.setUser_id(null);
-                Callthis = new Intent(".Login");
+                Callthis = new Intent(".Voting_page");
                 startActivity(Callthis);
-                finish();
-            }
-        });
-
-        btnNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-                Callthis = new Intent(".votedList");
-                startActivity(Callthis);
-            }
-        });
-
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> arg0, View view, int position, long arg3) {
-                String can_position = candidatesList.get(position).getPosition();
-                Callthis = new Intent(".CandidatesList");
-                Callthis.putExtra("position", can_position);
-                startActivity(Callthis);
-
             }
         });
     }
-
 
     private void postDataUsingVolley() {
         String url = GlobalVariables.url+"/voting_try.php";
@@ -110,17 +77,16 @@ public class Voting_page extends Activity {
                     String picNameArr = respObj.getString("picNameArr");
                     String canIdArr = respObj.getString("canIdArr");
                     //converting to array
-                    canNameArr2 = canNameArr.split(",");
-                    posNameArr2 = posNameArr.split(",");
-                    picNameArr2 = picNameArr.split(",");
-                    canIdArr2 = canIdArr.split(",");
+                    String[] canNameArr2 = canNameArr.split(",");
+                    String[] posNameArr2 = posNameArr.split(",");
+                    String[] picNameArr2 = picNameArr.split(",");
+                    String[] canIdArr2 = canIdArr.split(",");
 
-                    LinkedHashSet<String> uniqueValuesSet = new LinkedHashSet<>(Arrays.asList(posNameArr2));
-                    String[] uniqueValuesArray = uniqueValuesSet.toArray(new String[0]);
-                    for(int i=0; i<uniqueValuesArray.length; i++){
-                        candidatesList.add(new Candidates(0 , null, uniqueValuesArray[i], null));
+                    for(int i=0; i<canIdArr2.length; i++){
+                        if(posNameArr2[i].equals(globalPos)){
+                            candidatesList.add(new Candidates(Integer.parseInt(canIdArr2[i]) , canNameArr2[i],  posNameArr2[i], null));
+                        }
                     }
-
                     adapter.notifyDataSetChanged();
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -141,5 +107,6 @@ public class Voting_page extends Activity {
         };
         queue.add(request);
     }
+
 
 }

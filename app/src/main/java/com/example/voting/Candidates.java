@@ -5,15 +5,15 @@ public class Candidates {
     private int id;
 
     private String name;
-    private String section;
+
     private String position;
     private String img;
 
-    public Candidates(int id, String name, String section, String position, String image) {
+    public Candidates(int id, String name,String position, String image) {
         super();
         this.id = id;
         this.name = name;
-        this.section = section;
+
         this.position = position;
         this.img = image;
 
@@ -35,13 +35,9 @@ public class Candidates {
         this.name = name;
     }
 
-    public String getSection() {
-        return section;
-    }
 
-    public void setSection(String section) {
-        this.section = section;
-    }
+
+
 
     public String getPosition() {
         return position;

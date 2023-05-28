@@ -17,17 +17,12 @@
         android:src="@drawable/logo_ucc_vot" />
 
     <EditText
-        android:id="@+id/edtUsername"
+        android:id="@+id/edtEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Username" />
+        android:hint="Enter Your Email" />
 
-    <EditText
-        android:id="@+id/edtPassword"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:password="true"
-        android:hint="Password" />
+
 
     <Button
         android:id="@+id/btnLogin"
@@ -35,11 +30,7 @@
         android:layout_height="wrap_content"
         android:text="LOGIN" />
 
-    <Button
-        android:id="@+id/btnScan"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="SCANNER" />
+
 
     <!--progress bar for loading -->
     <ProgressBar

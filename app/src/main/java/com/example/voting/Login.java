@@ -12,7 +12,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -22,39 +21,33 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Login extends AppCompatActivity {
-    EditText edtUsername, edtPassword;
+    EditText edtEmail;
 //    ProgressBar loadingPB;
     Intent Callthis;
-    Button btnSubmit,btnScan;
+    Button btnSubmit;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        edtUsername=findViewById(R.id.edtUsername);
-        edtPassword=findViewById(R.id.edtPassword);
+        edtEmail=findViewById(R.id.edtEmail);
+
         btnSubmit=findViewById(R.id.btnLogin);
-        btnScan = findViewById(R.id.btnScan);
+
 
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                postDataUsingVolley(edtUsername.getText().toString(), edtPassword.getText().toString());
+                postDataUsingVolley(edtEmail.getText().toString());
 
             }
         });
 
-        btnScan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Callthis = new Intent(".Qr_scanner");
-                startActivity(Callthis);
-            }
-        });
+
     }
 
-    private void postDataUsingVolley(final String username, final String password) {
-        String url = GlobalVariables.url+"/process_log.php";
-//        String url = "https://ucc-csd-bscs.com/WEBOMS/mobile/login.php";
+    private void postDataUsingVolley(final String email) {
+        String url = GlobalVariables.url+"/process_log_mob.php";
+//        String url = "http://192.168.1.9/AlumniVot/process_log_mob.php";
 //        loadingPB.setVisibility(View.VISIBLE);
         RequestQueue queue = Volley.newRequestQueue(Login.this);
         StringRequest request = new StringRequest(Request.Method.POST, url, new com.android.volley.Response.Listener<String>() {
@@ -66,12 +59,12 @@ public class Login extends AppCompatActivity {
                     String result = respObj.getString("result");
 
                     Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
-                    if (result.equals("valid")){
+                    if (result.equals("success")){
                         finish();
                         Callthis = new Intent(".Voting_page");
                         GlobalClass globalClass = (GlobalClass) getApplicationContext();
-                        globalClass.setUser_id(respObj.getString("id"));
-                        globalClass.setUsername(edtUsername.getText().toString());
+//                        globalClass.setUser_id(respObj.getString("id"));
+                        globalClass.setUsername(edtEmail.getText().toString());
 //                        Toast.makeText(Login.this, globalClass.getUser_id(), Toast.LENGTH_SHORT).show();
                         startActivity(Callthis);
                     }
@@ -89,8 +82,7 @@ public class Login extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("username", username);
-                params.put("pass", password);
+                params.put("email", email);
 //                params.put("post", "VOT");
                 return params;
             }

@@ -5,9 +5,9 @@ import java.util.ArrayList;
 public interface GlobalVariables {
 
     //hosting
-//    public static final String url = "http://ucc-csd-bscs.com/VOT";
+//    public static final String url = "http://ucc-csd-bscs.com/AlumniVot";
     //localHost
-    public static final  String url = "http://192.168.240.116/VOT";
+    public static final  String url = "http://192.168.200.116/AlumniVot";
 
     public ArrayList<Candidates> votedList = new ArrayList<Candidates>();
 

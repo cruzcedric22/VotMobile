@@ -30,16 +30,6 @@
 
 
         <!--QR-->
-        <activity
-            android:name=".Qr_scanner"
-            android:exported="true">
-            <intent-filter>
-                <action android:name=".Qr_scanner" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-
 
 
         <!--login-->
@@ -53,16 +43,19 @@
             </intent-filter>
         </activity>
 
-        <!--VOTEDLIST-->
+
+        <!--candidateslist-->
         <activity
-            android:name=".votedList"
+            android:name=".CandidatesList"
             android:exported="true">
             <intent-filter>
-                <action android:name=".votedList" />
+                <action android:name=".CandidatesList" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
+        <!--VOTEDLIST-->
 
         <!-- voting page-->
         <activity
