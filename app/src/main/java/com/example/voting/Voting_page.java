@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -78,14 +79,19 @@ public class Voting_page extends Activity {
                 String section = candidatesList.get(position).getSection();
                 String can_position = candidatesList.get(position).getPosition();
                 String img = candidatesList.get(position).getImg();
+//                highlight();
+
 
                 for(int i=0; i<GlobalVariables.votedList.size(); i++){
                     if(GlobalVariables.votedList.get(i).getPosition().equals(can_position)){
-                        Toast.makeText(Voting_page.this, "pos exist", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(Voting_page.this, "pos exist", Toast.LENGTH_SHORT).show();
                         GlobalVariables.votedList.get(i).setId(id);
                         GlobalVariables.votedList.get(i).setName(name);
                         GlobalVariables.votedList.get(i).setSection(section);
                         GlobalVariables.votedList.get(i).setImg(img);
+//                        highlight();
+//                        View child = arg0.getChildAt(i);
+//                        child.setBackgroundColor(getResources().getColor(R.color.purple_500));
                         return;
                     }
                 }
@@ -93,6 +99,8 @@ public class Voting_page extends Activity {
 
             }
         });
+
+
 
     }
 
@@ -148,4 +156,78 @@ public class Voting_page extends Activity {
         };
         queue.add(request);
     }
+
+//    private void highlight() {
+////        for (int i = 0; i < gridView.getChildCount(); i++) {
+////            View child = gridView.getChildAt(i);
+////            TextView textView = child.findViewById(R.id.nameText); // Replace with the actual ID of your TextView
+////            String gridItemText = textView.getText().toString();
+////
+////            for (int j = 0; j < GlobalVariables.votedList.size(); j++) {
+////                String votedName = GlobalVariables.votedList.get(j).getName();
+////
+////                if (votedName.equals(gridItemText)) {
+////                    child.setBackgroundColor(getResources().getColor(R.color.purple_500));
+//////                    Toast.makeText(this, gridItemText, Toast.LENGTH_SHORT).show();
+//////                    break; // Break the loop if a match is found
+////                } else {
+////                    child.setBackgroundColor(getResources().getColor(R.color.white));
+////                }
+////            }
+////        }
+//
+//
+//        ArrayList<String> arrayList = new ArrayList<>();
+////        for (int i = 0; i < GlobalVariables.votedList.size(); i++) {
+////            arrayList.add(GlobalVariables.votedList.get(i).getName());
+////        }
+////        Toast.makeText(this, arrayList.toString(), Toast.LENGTH_SHORT).show();
+////
+//
+//        for (int i = 0; i < gridView.getChildCount(); i++) {
+//            View child = gridView.getChildAt(i);
+//            TextView textView = child.findViewById(R.id.nameText); // Replace with the actual ID of your TextView
+//            String gridItemText = textView.getText().toString();
+//
+//            System.out.println("gridItemText: " + gridItemText);
+//
+//            if (arrayList.contains(gridItemText)) {
+//                child.setBackgroundColor(getResources().getColor(R.color.purple_500));
+//                System.out.println("Match found for: " + gridItemText);
+//            } else {
+//                child.setBackgroundColor(getResources().getColor(R.color.white));
+//                System.out.println("No match found for: " + gridItemText);
+//            }
+//        }
+//
+//
+//    }
+
+
+
+//    }
+
+//    private void highlight() {
+//        for (int i = 0; i < gridView.getChildCount(); i++) {
+//            View child = gridView.getChildAt(i);
+//            TextView textView = child.findViewById(R.id.nameText); // Replace with the actual ID of your TextView
+//            String gridItemText = textView.getText().toString();
+//
+//            if (isInVotedList(gridItemText)) {
+//                child.setBackgroundColor(getResources().getColor(R.color.purple_500));
+//            } else {
+//                child.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+//            }
+//        }
+//    }
+//
+//    private boolean isInVotedList(String itemName) {
+//        for (Candidates candidate : GlobalVariables.votedList) {
+//            if (candidate.getName().equals(itemName)) {
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
+
 }

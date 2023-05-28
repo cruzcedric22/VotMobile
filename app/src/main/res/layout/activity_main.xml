@@ -8,6 +8,14 @@
 
     android:orientation="vertical">
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginLeft="115dp"
+        android:src="@drawable/logo_ucc_vot" />
+
     <EditText
         android:id="@+id/edtUsername"
         android:layout_width="match_parent"
@@ -26,6 +34,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="LOGIN" />
+
+    <Button
+        android:id="@+id/btnScan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="SCANNER" />
 
     <!--progress bar for loading -->
     <ProgressBar

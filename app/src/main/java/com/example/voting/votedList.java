@@ -79,7 +79,9 @@ public class votedList extends Activity {
                         Callthis = new Intent(".Login");
                         startActivity(Callthis);
                         finish();
-
+                    }
+                    else if(result.equals("invalid")){
+                        Toast.makeText(votedList.this, "QR is scanned", Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

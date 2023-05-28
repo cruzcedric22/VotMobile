@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -22,8 +23,9 @@ import java.util.Map;
 
 public class Login extends AppCompatActivity {
     EditText edtUsername, edtPassword;
+//    ProgressBar loadingPB;
     Intent Callthis;
-    Button btnSubmit;
+    Button btnSubmit,btnScan;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,12 +33,21 @@ public class Login extends AppCompatActivity {
         edtUsername=findViewById(R.id.edtUsername);
         edtPassword=findViewById(R.id.edtPassword);
         btnSubmit=findViewById(R.id.btnLogin);
+        btnScan = findViewById(R.id.btnScan);
 
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 postDataUsingVolley(edtUsername.getText().toString(), edtPassword.getText().toString());
 
+            }
+        });
+
+        btnScan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Callthis = new Intent(".Qr_scanner");
+                startActivity(Callthis);
             }
         });
     }
@@ -53,7 +64,6 @@ public class Login extends AppCompatActivity {
                 try {
                     JSONObject respObj = new JSONObject(response);
                     String result = respObj.getString("result");
-//                    Toast.makeText(Login.this, result, Toast.LENGTH_SHORT).show();
 
                     Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
                     if (result.equals("valid")){
@@ -62,7 +72,7 @@ public class Login extends AppCompatActivity {
                         GlobalClass globalClass = (GlobalClass) getApplicationContext();
                         globalClass.setUser_id(respObj.getString("id"));
                         globalClass.setUsername(edtUsername.getText().toString());
-                        Toast.makeText(Login.this, globalClass.getUser_id(), Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(Login.this, globalClass.getUser_id(), Toast.LENGTH_SHORT).show();
                         startActivity(Callthis);
                     }
                 } catch (JSONException e) {
