@@ -20,6 +20,14 @@
             android:text="Position"
             android:textAlignment="center"/>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/nameText"
+            android:textSize="17sp"
+            android:text="Name"
+            android:textAlignment="center"/>
+
 
     </LinearLayout>
 

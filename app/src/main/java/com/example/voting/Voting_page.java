@@ -33,7 +33,6 @@ import java.util.Set;
 
 public class Voting_page extends Activity {
     ArrayList<Candidates> candidatesList = new ArrayList<Candidates>();
-    ArrayList<Candidates> candidatesList2 = new ArrayList<Candidates>();
 
     String[] canNameArr2 = null;
     String[] posNameArr2 = null;
@@ -55,10 +54,15 @@ public class Voting_page extends Activity {
         btnNext = (Button) findViewById(R.id.btnNext);
 
 
+
         gridView = (GridView) findViewById(R.id.gridView);
         adapter = new PositionAdapter(this, R.layout.positiondetails, candidatesList);
         gridView.setAdapter(adapter);
         postDataUsingVolley();
+
+
+
+
 
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,7 +70,6 @@ public class Voting_page extends Activity {
                 GlobalClass globalClass = (GlobalClass) getApplicationContext();
                 GlobalVariables.votedList.clear();
                 globalClass.setUsername(null);
-//                globalClass.setUser_id(null);
                 Callthis = new Intent(".Login");
                 startActivity(Callthis);
                 finish();
@@ -119,7 +122,9 @@ public class Voting_page extends Activity {
                     String[] uniqueValuesArray = uniqueValuesSet.toArray(new String[0]);
                     for(int i=0; i<uniqueValuesArray.length; i++){
                         candidatesList.add(new Candidates(0 , null, uniqueValuesArray[i], null));
+                        GlobalVariables.votedList.add(new Candidates(0,"",uniqueValuesArray[i],"null"));
                     }
+                    Toast.makeText(getApplicationContext(), String.valueOf(GlobalVariables.votedList.get(0).getId()), Toast.LENGTH_SHORT).show();
 
                     adapter.notifyDataSetChanged();
                 } catch (JSONException e) {

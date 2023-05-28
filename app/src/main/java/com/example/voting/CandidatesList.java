@@ -3,6 +3,7 @@ package com.example.voting;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.Toast;
@@ -60,6 +61,37 @@ public class CandidatesList extends AppCompatActivity {
                 startActivity(Callthis);
             }
         });
+
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View view, int position, long arg3) {
+                int id = candidatesList.get(position).getId();
+                String name = candidatesList.get(position).getName();
+                String can_position = candidatesList.get(position).getPosition();
+                String img = candidatesList.get(position).getImg();
+
+
+
+                for(int i=0; i<GlobalVariables.votedList.size(); i++){
+                    if(GlobalVariables.votedList.get(i).getPosition().equals(can_position)){
+                        GlobalVariables.votedList.get(i).setId(id);
+                        GlobalVariables.votedList.get(i).setName(name);
+                        GlobalVariables.votedList.get(i).setImg(img);
+                        Toast.makeText(CandidatesList.this, "equal exisst", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                }
+
+
+//                Toast.makeText(getApplicationContext(), GlobalVariables.votedList.get(0).getName(), Toast.LENGTH_SHORT).show();
+//                for(int i=0; i<GlobalVariables.votedList.size(); i++){
+//                    if ()
+//                }
+//                GlobalVariables.votedList.add(new Candidates(id,name,can_position,img));
+
+            }
+        });
+
     }
 
     private void postDataUsingVolley() {
@@ -87,6 +119,7 @@ public class CandidatesList extends AppCompatActivity {
                             candidatesList.add(new Candidates(Integer.parseInt(canIdArr2[i]) , canNameArr2[i],  posNameArr2[i], null));
                         }
                     }
+
                     adapter.notifyDataSetChanged();
                 } catch (JSONException e) {
                     e.printStackTrace();

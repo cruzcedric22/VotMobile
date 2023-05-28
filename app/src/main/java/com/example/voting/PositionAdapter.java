@@ -57,6 +57,7 @@ public class PositionAdapter extends BaseAdapter {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             row = inflater.inflate(layout, null);
             holder.posText = (TextView) row.findViewById(R.id.posText);
+            holder.nameText = (TextView) row.findViewById(R.id.nameText);
             row.setTag(holder);
         }
         else {
@@ -64,6 +65,8 @@ public class PositionAdapter extends BaseAdapter {
         }
         Candidates candidates = candidatesList.get(position);
         holder.posText.setText(candidates.getPosition());
+        String name = GlobalVariables.votedList.get(position).getName();
+        holder.nameText.setText(name);
         return row;
     }
 }
