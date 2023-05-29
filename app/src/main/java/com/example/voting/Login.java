@@ -63,7 +63,8 @@ public class Login extends AppCompatActivity {
                         finish();
                         Callthis = new Intent(".Voting_page");
                         GlobalClass globalClass = (GlobalClass) getApplicationContext();
-//                        globalClass.setUser_id(respObj.getString("id"));
+                        globalClass.setUser_id(respObj.getString("id"));
+//                        Toast.makeText(globalClass, globalClass.getUser_id(), Toast.LENGTH_SHORT).show();
                         globalClass.setUsername(edtEmail.getText().toString());
 //                        Toast.makeText(Login.this, globalClass.getUser_id(), Toast.LENGTH_SHORT).show();
                         startActivity(Callthis);

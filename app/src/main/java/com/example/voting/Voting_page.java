@@ -44,14 +44,14 @@ public class Voting_page extends Activity {
     Intent Callthis;
 
     GridView gridView;
-    Button btnLogout,btnNext;
+    Button btnLogout,btnSubmit;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.voting_page);
 
         btnLogout = (Button) findViewById(R.id.btnLogout);
-        btnNext = (Button) findViewById(R.id.btnNext);
+        btnSubmit = (Button) findViewById(R.id.Submit);
 
 
 
@@ -76,12 +76,10 @@ public class Voting_page extends Activity {
             }
         });
 
-        btnNext.setOnClickListener(new View.OnClickListener() {
+        btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
-                Callthis = new Intent(".votedList");
-                startActivity(Callthis);
+                SubmitVote();
             }
         });
 
@@ -123,8 +121,9 @@ public class Voting_page extends Activity {
                     for(int i=0; i<uniqueValuesArray.length; i++){
                         candidatesList.add(new Candidates(0 , null, uniqueValuesArray[i], null));
                         GlobalVariables.votedList.add(new Candidates(0,"",uniqueValuesArray[i],"null"));
+//                        Toast.makeText(getApplicationContext(), String.valueOf(GlobalVariables.votedList.get().getId()), Toast.LENGTH_SHORT).show();
+
                     }
-                    Toast.makeText(getApplicationContext(), String.valueOf(GlobalVariables.votedList.get(0).getId()), Toast.LENGTH_SHORT).show();
 
                     adapter.notifyDataSetChanged();
                 } catch (JSONException e) {
@@ -146,5 +145,66 @@ public class Voting_page extends Activity {
         };
         queue.add(request);
     }
+
+    private void SubmitVote() {
+        String url = GlobalVariables.url+"/process_voting_mob.php";
+//        String url = "https://ucc-csd-bscs.com/WEBOMS/mobile/login.php";
+//        loadingPB.setVisibility(View.VISIBLE);
+        RequestQueue queue = Volley.newRequestQueue(Voting_page.this);
+        StringRequest request = new StringRequest(Request.Method.POST, url, new com.android.volley.Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+//                loadingPB.setVisibility(View.GONE);
+                try {
+                    JSONObject respObj = new JSONObject(response);
+                    String result = respObj.getString("result");
+                    Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
+                    if (result.equals("success")){
+                        Toast.makeText(Voting_page.this, "Voted Successfully", Toast.LENGTH_SHORT).show();
+                        GlobalClass globalClass = (GlobalClass) getApplicationContext();
+                        GlobalVariables.votedList.clear();
+                        Callthis = new Intent(".Login");
+                        startActivity(Callthis);
+                        finish();
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new com.android.volley.Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(), "Fail to get response = " + error, Toast.LENGTH_SHORT).show();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() {
+                String can_id = "";
+                for(int i=0; i<GlobalVariables.votedList.size(); i++){
+                    if (i == GlobalVariables.votedList.size()-1){
+                        can_id += GlobalVariables.votedList.get(i).getId();
+                    }
+                    else{
+                        can_id += GlobalVariables.votedList.get(i).getId() + ",";
+                    }
+                }
+                GlobalClass globalClass = (GlobalClass) getApplicationContext();
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("post", "votMobile");
+                params.put("can_id", can_id);
+                params.put("voters_id", globalClass.getUser_id());
+                return params;
+            }
+        };
+        queue.add(request);
+    }
+
+
+
+
+
+
 
 }

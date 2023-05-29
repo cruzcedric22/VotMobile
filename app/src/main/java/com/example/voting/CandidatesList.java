@@ -77,10 +77,13 @@ public class CandidatesList extends AppCompatActivity {
                         GlobalVariables.votedList.get(i).setId(id);
                         GlobalVariables.votedList.get(i).setName(name);
                         GlobalVariables.votedList.get(i).setImg(img);
-                        Toast.makeText(CandidatesList.this, "equal exisst", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(CandidatesList.this, "equal exisst", Toast.LENGTH_SHORT).show();
+                        Callthis = new Intent(".Voting_page");
+                        startActivity(Callthis);
                         return;
                     }
                 }
+
 
 
 //                Toast.makeText(getApplicationContext(), GlobalVariables.votedList.get(0).getName(), Toast.LENGTH_SHORT).show();
