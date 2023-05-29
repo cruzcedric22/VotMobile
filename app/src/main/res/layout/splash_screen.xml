@@ -17,6 +17,6 @@
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/logo_ucc_vot" />
+        android:src="@drawable/alumni" />
 
 </LinearLayout>

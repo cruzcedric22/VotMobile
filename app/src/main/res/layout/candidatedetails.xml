@@ -5,40 +5,47 @@
     android:orientation="horizontal"
     android:weightSum="3"
     android:paddingVertical="10dp"
+
     android:background="@drawable/border"
 
     >
 
     <ImageView
         android:id="@+id/imgCan"
-        android:layout_weight="1"
         android:layout_width="0dp"
         android:layout_height="100dp"
+        android:layout_weight="1"
         android:src="@drawable/ic_launcher_background" />
 
     <LinearLayout
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:layout_weight="2"
-        >
+        android:gravity="center_vertical"
+        android:orientation="vertical">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/nameText"
-            android:textSize="17sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="name"
+            android:textStyle="bold"
+            android:textColor="@color/black"
             android:textAlignment="center"
-            android:text="name"/>
+           android:layout_gravity="center_horizontal"
+            android:textSize="25sp" />
 
 
         <TextView
+            android:id="@+id/posText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/posText"
-            android:textSize="17sp"
             android:text="Position"
-            android:textAlignment="center"/>
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textStyle="italic"
+            android:layout_gravity="center_horizontal"
+            />
 
 
     </LinearLayout>

@@ -4,7 +4,7 @@
     android:weightSum="5.5"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    
+
 
     <GridView
         android:layout_weight="5"
@@ -13,6 +13,7 @@
         android:id="@+id/gridView"
         android:layout_gravity="center"
         android:numColumns="1"
+        android:padding="25dp"
         android:verticalSpacing="8dp"
         android:background="@android:color/transparent">
 
@@ -31,21 +32,23 @@
         <Button
             android:layout_weight="1"
             android:id="@+id/btnLogout"
-            android:backgroundTint="@color/darkgreen"
+            android:backgroundTint="@color/seagreen"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:text="LOGOUT"
+            android:textColor="@color/white"
             android:textSize="18sp" />
 
         <Button
             android:layout_weight="1"
             android:id="@+id/Submit"
-            android:backgroundTint="@color/darkgreen"
+            android:backgroundTint="@color/seagreen"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:text="SUBMIT"
+            android:textColor="@color/white"
             android:textSize="18sp" />
 
     </LinearLayout>
